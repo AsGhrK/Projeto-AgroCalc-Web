@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgroCalc Web</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="script.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="navbar" aria-label="Navegação principal">
+      <a class="brand" href="index.html" aria-label="AgroCalc Web - página inicial">
+        <span class="brand-mark">Ag</span>
+        <span>
+          <strong>AgroCalc Web</strong>
+          <small>gestão e cálculo para o agronegócio</small>
+        </span>
+      </a>
+
+      <input class="nav-toggle" type="checkbox" id="nav-toggle">
+      <label class="nav-toggle-label" for="nav-toggle" aria-label="Abrir menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </label>
+
+      <ul class="nav-links">
+        <li><a class="active" href="index.html">Início</a></li>
+        <li><a href="calculadora.html">Calculadoras</a></li>
+        <li><a href="computacao.html">Computação</a></li>
+      </ul>
+
+      <button class="theme-toggle" id="theme-toggle" aria-label="Alternar modo escuro/claro" title="Alternar tema">
+        <span class="theme-icon">🌙</span>
+      </button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">Projeto Integrador</p>
+        <h1>Ferramentas simples para decisões melhores no campo.</h1>
+        <p>
+          O AgroCalc Web reúne interface responsiva, lógica de cálculo e conceitos de computação em um único sistema para apoiar o produtor rural.
+        </p>
+        <div class="hero-actions">
+          <a class="button primary" href="calculadora.html">Abrir calculadoras</a>
+          <a class="button secondary" href="computacao.html">Ver módulo de computação</a>
+        </div>
+      </div>
+
+      <div class="hero-panel">
+        <article class="stat-card">
+          <span>3 módulos</span>
+          <strong>Web, Python e lógica digital</strong>
+        </article>
+        <article class="stat-card accent">
+          <span>Responsivo</span>
+          <strong>Funciona bem em celular e desktop</strong>
+        </article>
+        <article class="stat-card">
+          <span>Python</span>
+          <strong>Custo, financiamento, matrizes e sistema linear</strong>
+        </article>
+      </div>
+    </section>
+
+    <section class="section-block">
+      <div class="section-heading">
+        <p class="eyebrow">Visão geral</p>
+        <h2>O que este projeto entrega</h2>
+      </div>
+
+      <div class="cards-grid">
+        <article class="card">
+          <h3>HTML e CSS</h3>
+          <p>Páginas semânticas, menu colapsável, grid de cards, animações e variáveis CSS.</p>
+        </article>
+        <article class="card">
+          <h3>Python</h3>
+          <p>Scripts com docstring, tratamento de erros e fórmulas de matemática aplicada.</p>
+        </article>
+        <article class="card">
+          <h3>Computação</h3>
+          <p>Conversor decimal/binário/hexadecimal, tabela verdade AND e linha do tempo da computação.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section-block highlight-band">
+      <div>
+        <p class="eyebrow">Como apresentar</p>
+        <h2>Mostre o site, rode os scripts e explique as fórmulas</h2>
+        <p>
+          A apresentação fica mais forte quando você navega no site ao vivo e demonstra o resultado dos cálculos no terminal.
+        </p>
+      </div>
+      <a class="button primary" href="calculadora.html">Ir para a demonstração</a>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>AgroCalc Web · Projeto Integrador</p>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgroCalc Web - Calculadoras</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="script.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="navbar" aria-label="Navegação principal">
+      <a class="brand" href="index.html">
+        <span class="brand-mark">Ag</span>
+        <span>
+          <strong>AgroCalc Web</strong>
+          <small>calculadoras práticas</small>
+        </span>
+      </a>
+
+      <input class="nav-toggle" type="checkbox" id="nav-toggle">
+      <label class="nav-toggle-label" for="nav-toggle" aria-label="Abrir menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </label>
+
+      <ul class="nav-links">
+        <li><a href="index.html">Início</a></li>
+        <li><a class="active" href="calculadora.html">Calculadoras</a></li>
+        <li><a href="computacao.html">Computação</a></li>
+      </ul>
+
+      <button class="theme-toggle" id="theme-toggle" aria-label="Alternar modo escuro/claro" title="Alternar tema">
+        <span class="theme-icon">🌙</span>
+      </button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="section-block">
+      <div class="section-heading">
+        <p class="eyebrow">Módulos práticos</p>
+        <h1>Ferramentas de apoio à decisão</h1>
+        <p>Use os formulários abaixo para testar a lógica do projeto no navegador.</p>
+      </div>
+
+      <div class="cards-grid single-column-mobile">
+        <article class="card form-card">
+          <h2>Conversor numérico</h2>
+          <form id="converter-form" class="form-stack">
+            <label>
+              Valor decimal
+              <input id="decimal-input" type="number" min="0" step="1" placeholder="Ex.: 175" required>
+            </label>
+            <label>
+              Base de saída
+              <select id="base-select" required>
+                <option value="binary">Binário</option>
+                <option value="hex">Hexadecimal</option>
+                <option value="both" selected>Binário e hexadecimal</option>
+              </select>
+            </label>
+            <button class="button primary" type="submit">Converter</button>
+          </form>
+          <div class="result-box" id="converter-result" aria-live="polite">Digite um valor para ver a conversão.</div>
+        </article>
+
+        <article class="card form-card">
+          <h2>Decisão de irrigação</h2>
+          <form id="logic-form" class="form-stack">
+            <label>
+              Umidade dentro do limite?
+              <select id="humidity-input" required>
+                <option value="1">Sim</option>
+                <option value="0">Não</option>
+              </select>
+            </label>
+            <label>
+              Temperatura dentro do limite?
+              <select id="temperature-input" required>
+                <option value="1">Sim</option>
+                <option value="0">Não</option>
+              </select>
+            </label>
+            <button class="button primary" type="submit">Avaliar</button>
+          </form>
+          <div class="result-box" id="logic-result" aria-live="polite">A tabela verdade será exibida aqui.</div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section-block">
+      <div class="section-heading">
+        <p class="eyebrow">Python</p>
+        <h2>Calculadoras financeiras no navegador</h2>
+        <p>Os mesmos conceitos dos scripts Python aparecem aqui em formulários rápidos para demonstração ao vivo.</p>
+      </div>
+
+      <div class="cards-grid single-column-mobile">
+        <article class="card form-card">
+          <h3>Mapa de talhões</h3>
+          <form id="talhoes-form" class="form-stack">
+            <p class="form-hint">Matriz 3 linhas × 4 setores. Valores em sacas/ha.</p>
+            <label>Linha Norte</label>
+            <div class="talhoes-row">
+              <label>Setor 1 <input id="talh-1-1" type="number" min="0" placeholder="Setor 1" value="62" required></label>
+              <label>Setor 2 <input id="talh-1-2" type="number" min="0" placeholder="Setor 2" value="58" required></label>
+              <label>Setor 3 <input id="talh-1-3" type="number" min="0" placeholder="Setor 3" value="71" required></label>
+              <label>Setor 4 <input id="talh-1-4" type="number" min="0" placeholder="Setor 4" value="65" required></label>
+            </div>
+            <label>Linha Centro</label>
+            <div class="talhoes-row">
+              <label>Setor 1 <input id="talh-2-1" type="number" min="0" placeholder="Setor 1" value="70" required></label>
+              <label>Setor 2 <input id="talh-2-2" type="number" min="0" placeholder="Setor 2" value="80" required></label>
+              <label>Setor 3 <input id="talh-2-3" type="number" min="0" placeholder="Setor 3" value="75" required></label>
+              <label>Setor 4 <input id="talh-2-4" type="number" min="0" placeholder="Setor 4" value="68" required></label>
+            </div>
+            <label>Linha Sul</label>
+            <div class="talhoes-row">
+              <label>Setor 1 <input id="talh-3-1" type="number" min="0" placeholder="Setor 1" value="55" required></label>
+              <label>Setor 2 <input id="talh-3-2" type="number" min="0" placeholder="Setor 2" value="60" required></label>
+              <label>Setor 3 <input id="talh-3-3" type="number" min="0" placeholder="Setor 3" value="58" required></label>
+              <label>Setor 4 <input id="talh-3-4" type="number" min="0" placeholder="Setor 4" value="63" required></label>
+            </div>
+            <button class="button primary" type="submit">Analisar produtividade</button>
+          </form>
+          <div class="result-box" id="talhoes-result" aria-live="polite">Informe os valores para ver a análise de produtividade.</div>
+        </article>
+
+        <article class="card form-card" id="py-plot-card">
+          <h3>Gráfico (Matplotlib)</h3>
+          <p class="form-hint">Exemplo de gráfico gerado por um script Python e exibido no site (bônus).</p>
+          <div class="plot-wrapper">
+              <img src="assets/plots/agro_plot.png" alt="Gráfico de produtividade gerado com Matplotlib" id="agro-plot" />
+          </div>
+            <div class="plot-actions">
+              <button id="generate-plot-btn" class="button secondary">Gerar gráfico (Python)</button>
+            </div>
+          <p class="form-hint">Para atualizar: rode <code>python python/generate_plot.py</code> na raiz do projeto.</p>
+        </article>
+
+        <article class="card form-card">
+          <h3>Blend de fertilizante</h3>
+          <form id="blend-form" class="form-stack">
+            <p class="form-hint">Metas de NPK em kg/ha.</p>
+            <label>
+              Meta de nitrogênio (kg/ha)
+              <input id="blend-n" type="number" min="0" step="0.1" placeholder="Ex.: 90" value="90" required>
+            </label>
+            <label>
+              Meta de fósforo (kg/ha)
+              <input id="blend-p" type="number" min="0" step="0.1" placeholder="Ex.: 60" value="60" required>
+            </label>
+            <label>
+              Meta de potássio (kg/ha)
+              <input id="blend-k" type="number" min="0" step="0.1" placeholder="Ex.: 60" value="60" required>
+            </label>
+            <button class="button primary" type="submit">Calcular blend</button>
+          </form>
+          <div class="result-box" id="blend-result" aria-live="polite">Informe as metas para calcular a composição de fertilizantes.</div>
+        </article>
+
+        <article class="card form-card">
+          <h3>Custo de produção</h3>
+          <form id="cost-form" class="form-stack">
+            <label>
+              Nome do produtor ou fazenda
+              <input id="producer-name" type="text" placeholder="Ex.: Fazenda São João" maxlength="80">
+            </label>
+            <label>
+              Custo fixo (R$)
+              <input id="cost-fixed" type="number" min="0" step="0.01" placeholder="Ex.: 8000" required>
+            </label>
+            <label>
+              Custo variável por unidade (R$)
+              <input id="cost-variable" type="number" min="0" step="0.01" placeholder="Ex.: 35" required>
+            </label>
+            <label>
+              Preço de venda por unidade (R$)
+              <input id="sale-price" type="number" min="0" step="0.01" placeholder="Ex.: 52" required>
+            </label>
+            <label>
+              Quantidade produzida
+              <input id="quantity-produced" type="number" min="0" step="1" placeholder="Ex.: 420" required>
+            </label>
+            <button class="button primary" type="submit">Calcular custo</button>
+          </form>
+          <div class="result-box" id="cost-result" aria-live="polite">Informe os valores para calcular o custo total e o ponto de equilíbrio.</div>
+        </article>
+
+        <article class="card form-card">
+          <h3>Financiamento agrícola</h3>
+          <form id="finance-form" class="form-stack">
+            <label>
+              Valor financiado (R$)
+              <input id="finance-value" type="number" min="0" step="0.01" placeholder="Ex.: 50000" required>
+            </label>
+            <label>
+              Taxa mensal (%)
+              <input id="finance-rate" type="number" min="0" step="0.01" placeholder="Ex.: 1.5" required>
+            </label>
+            <label>
+              Número de parcelas
+              <input id="finance-installments" type="number" min="1" step="1" placeholder="Ex.: 24" required>
+            </label>
+            <button class="button primary" type="submit">Gerar parcelas</button>
+          </form>
+          <div class="result-box" id="finance-result" aria-live="polite">A parcela e uma prévia da amortização aparecerão aqui.</div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section-block">
+      <div class="section-heading">
+        <p class="eyebrow">Módulo 04 — Conversor de Dados</p>
+        <h2>Área de talhão</h2>
+        <p>Informe as dimensões do talhão para calcular a área em metros quadrados e hectares.</p>
+      </div>
+
+      <div class="cards-grid single-column-mobile">
+        <article class="card form-card">
+          <h3>Calculadora de área</h3>
+          <form id="area-form" class="form-stack">
+            <label>
+              Nome do talhão
+              <input id="area-name" type="text" placeholder="Ex.: Talhão Norte" maxlength="60">
+            </label>
+            <label>
+              Comprimento (metros)
+              <input id="area-length" type="number" min="0" step="0.1" placeholder="Ex.: 500" required>
+            </label>
+            <label>
+              Largura (metros)
+              <input id="area-width" type="number" min="0" step="0.1" placeholder="Ex.: 200" required>
+            </label>
+            <button class="button primary" type="submit">Calcular área</button>
+          </form>
+          <div class="result-box" id="area-result" aria-live="polite">Informe as dimensões para calcular a área em hectares.</div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>AgroCalc Web · módulo de cálculos</p>
+  </footer>
+</body>
+</html>

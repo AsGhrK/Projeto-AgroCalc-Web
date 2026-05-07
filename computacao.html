@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgroCalc Web - Computação</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="script.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="navbar" aria-label="Navegação principal">
+      <a class="brand" href="index.html">
+        <span class="brand-mark">Ag</span>
+        <span>
+          <strong>AgroCalc Web</strong>
+          <small>computação aplicada</small>
+        </span>
+      </a>
+
+      <input class="nav-toggle" type="checkbox" id="nav-toggle">
+      <label class="nav-toggle-label" for="nav-toggle" aria-label="Abrir menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </label>
+
+      <ul class="nav-links">
+        <li><a href="index.html">Início</a></li>
+        <li><a href="calculadora.html">Calculadoras</a></li>
+        <li><a class="active" href="computacao.html">Computação</a></li>
+      </ul>
+
+      <button class="theme-toggle" id="theme-toggle" aria-label="Alternar modo escuro/claro" title="Alternar tema">
+        <span class="theme-icon">🌙</span>
+      </button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="section-block">
+      <div class="section-heading">
+        <p class="eyebrow">Conceitos</p>
+        <h1>Como o sistema funciona</h1>
+      </div>
+
+      <div class="architecture-grid">
+        <article class="card">
+          <h2>CPU</h2>
+          <p>Processa instruções, coordena cálculos e executa a lógica do site e dos scripts.</p>
+        </article>
+        <article class="card">
+          <h2>RAM</h2>
+          <p>Guarda dados temporários durante o uso do navegador e durante a execução dos programas.</p>
+        </article>
+        <article class="card">
+          <h2>Armazenamento</h2>
+          <p>Salva arquivos HTML, CSS, JavaScript e Python usados pelo projeto.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section-block">
+      <div class="section-heading"> 
+        <p class="eyebrow">Glossário</p>
+        <h2>Termos essenciais</h2>
+      </div>
+      <div class="cards-grid">
+        <article class="card">
+          <h3>Bit</h3>
+          <p>Menor unidade de informação digital, podendo valer 0 ou 1. Abreviatura de "binary digit".</p>
+        </article>
+        <article class="card">
+          <h3>Byte</h3>
+          <p>Conjunto de 8 bits usado para representar caracteres e pequenos valores.</p>
+        </article>
+        <article class="card">
+          <h3>Processamento</h3>
+          <p>Etapa em que a CPU executa instruções e transforma dados em resultado útil.</p>
+        </article>
+        <article class="card">
+          <h3>CPU</h3>
+          <p>Unidade central de processamento responsável por executar instruções do programa.</p>
+        </article>
+        <article class="card">
+          <h3>RAM</h3>
+          <p>Memória de acesso aleatório, usada para dados temporários durante a execução.</p>
+        </article>
+        <article class="card">
+          <h3>Determinante</h3>
+          <p>Valor calculado de uma matriz que indica se o sistema linear tem solução única.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section-block">
+      <div class="section-heading">
+        <p class="eyebrow">Linha do tempo</p>
+        <h2>História da computação no agro</h2>
+      </div>
+      <div class="timeline timeline-grid">
+        <article class="timeline-item">
+          <span>1950</span>
+          <p>Primeiros registros mecanizados de produção e uso de máquinas de calcular.</p>
+        </article>
+        <article class="timeline-item">
+          <span>1970</span>
+          <p>Planilhas e computadores passam a apoiar custos e planejamento rural.</p>
+        </article>
+        <article class="timeline-item">
+          <span>1990</span>
+          <p>Sistemas de gestão agrícola começam a organizar dados de lavoura e estoque.</p>
+        </article>
+        <article class="timeline-item">
+          <span>2010</span>
+          <p>Internet no campo e sensores tornam a agricultura mais conectada.</p>
+        </article>
+        <article class="timeline-item">
+          <span>2020+</span>
+          <p>Aplicações web e análise de dados apoiam decisões em tempo real.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section-block">
+      <div class="section-heading">
+        <p class="eyebrow">Talhões e fertilizante</p>
+        <h2>Como os módulos de matemática aparecem no projeto</h2>
+      </div>
+      <div class="cards-grid single-column-mobile">
+        <article class="card">
+          <h3>Mapa de talhões</h3>
+          <p>A matriz em Python representa produtividade por setor e ajuda a comparar desempenho entre áreas da fazenda.</p>
+          <div class="mini-table">
+            <span>62</span><span>58</span><span>71</span><span>65</span>
+            <span>70</span><span>80</span><span>75</span><span>68</span>
+            <span>55</span><span>60</span><span>58</span><span>63</span>
+          </div>
+        </article>
+        <article class="card">
+          <h3>Blend de fertilizante</h3>
+          <p>O sistema linear 3x3 calcula a quantidade de ureia, superfosfato e KCl para atingir a meta de NPK.</p>
+          <ul class="formula-list">
+            <li>Determinante da matriz para verificar solução única.</li>
+            <li><code>numpy.linalg.solve()</code> para encontrar a composição.</li>
+            <li>Resultado em kg/ha para facilitar a apresentação.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section-block">
+      <div class="section-heading">
+        <p class="eyebrow">Lógica digital</p>
+        <h2>Tabela verdade do AND aplicado à irrigação</h2>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Umidade</th>
+              <th>Temperatura</th>
+              <th>Irrigar?</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>0</td><td>0</td><td>0</td></tr>
+            <tr><td>0</td><td>1</td><td>0</td></tr>
+            <tr><td>1</td><td>0</td><td>0</td></tr>
+            <tr><td>1</td><td>1</td><td>1</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section-block">
+      <div class="section-heading">
+        <p class="eyebrow">Matemática — Conjuntos</p>
+        <h2>Classificação de insumos agrícolas</h2>
+        <p>Aplicação da teoria dos conjuntos na organização de insumos por categoria. Cada insumo pertence a um conjunto definido por critério de origem e composição.</p>
+      </div>
+
+      <div class="cards-grid">
+        <article class="card">
+          <h3>Orgânicos (O)</h3>
+          <ul class="formula-list">
+            <li>Esterco bovino</li>
+            <li>Composto vegetal</li>
+            <li>Biofertilizante líquido</li>
+            <li>Farinha de ossos</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Químicos (Q)</h3>
+          <ul class="formula-list">
+            <li>Ureia (45% N)</li>
+            <li>Superfosfato simples</li>
+            <li>Cloreto de potássio (KCl)</li>
+            <li>MAP (monoamônio fosfato)</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Híbridos — O ∩ Q (H)</h3>
+          <ul class="formula-list">
+            <li>Fertilizante organomineral granulado</li>
+            <li>Composto enriquecido com NPK</li>
+            <li>Bioestimulantes com micronutrientes</li>
+          </ul>
+        </article>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Conjunto</th>
+              <th>Critério de pertinência</th>
+              <th>Relação</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Orgânicos (O)</td><td>Origem biológica, sem síntese química</td><td>O ∩ Q = ∅ (puros)</td></tr>
+            <tr><td>Químicos (Q)</td><td>Sintetizados industrialmente</td><td>Q ∩ O = ∅ (puros)</td></tr>
+            <tr><td>Híbridos (H)</td><td>Combinação de orgânico + mineral</td><td>H ⊂ O ∪ Q</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>AgroCalc Web · módulo de computação</p>
+  </footer>
+</body>
+</html>
