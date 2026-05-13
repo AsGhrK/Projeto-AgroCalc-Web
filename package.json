@@ -1,0 +1,21 @@
+{
+  "name": "agro-calc-web",
+  "version": "1.0.0",
+  "description": "Calculadora agrícola com gráficos gerados em Python",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "agricultura",
+    "calculadora",
+    "talhoes"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "devDependencies": {}
+}
