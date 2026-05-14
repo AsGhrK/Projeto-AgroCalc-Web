@@ -165,12 +165,20 @@ app.get('/api/generate-plot', async (req, res) => {
   }
 });
 
-// Servir arquivos estáticos
-app.use(express.static(__dirname));
+// Servir arquivos estáticos (serve da pasta src/)
+app.use(express.static(path.join(__dirname, 'src')));
 
-// Rota raiz
+// Rotas para páginas HTML
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'index.html'));
+  res.sendFile(path.join(__dirname, 'src', 'html', 'index.html'));
+});
+
+app.get('/calculadora.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'src', 'html', 'calculadora.html'));
+});
+
+app.get('/computacao.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'src', 'html', 'computacao.html'));
 });
 
 // Iniciar servidor

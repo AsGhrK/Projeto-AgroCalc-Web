@@ -1,4 +1,11 @@
+/* ========================================
+   AgroCalc Web - Estilos Principal
+   Design tokens, tema dark/light, componentes
+   ======================================== */
+
+/* ===== DESIGN TOKENS - VARIÁVEIS DE COR ===== */
 :root {
+  /* Cores base (tema dark) */
   --cor-fundo: #0c1511;
   --cor-fundo-suave: #111d18;
   --panel: rgba(18, 31, 26, 0.92);
@@ -6,21 +13,30 @@
   --line: rgba(255, 255, 255, 0.1);
   --cor-texto: #edf5ef;
   --cor-texto-suave: #a8d4b0;
+  
+  /* Cores primária (verde) */
   --cor-primaria: #7ddc8b;
   --cor-primaria-forte: #5cc96c;
   --cor-primaria-rgb: 125,220,139;
   --cor-primaria-forte-rgb: 92,201,108;
+  
+  /* Cor secundária (amarelo) */
   --cor-secundaria-rgb: 246,200,95;
+  --cor-secundaria: #f6c85f;
+  
+  /* RGBs para gradientes */
   --panel-rgb: 18,31,26;
   --panel-alt-rgb: 30,48,39;
   --line-rgb: 255,255,255;
-  --cor-secundaria: #f6c85f;
+  
+  /* Efeitos */
   --sombra: 0 20px 50px rgba(0, 0, 0, 0.35);
   --raio: 22px;
   --raio-sm: 14px;
   --fonte: 'Inter', system-ui, sans-serif;
 }
 
+/* Tema claro: sobrescreve variáveis do root */
 html[data-theme="light"] {
   --cor-fundo: #eaf7ec;
   --cor-fundo-suave: #f3fbf5;
@@ -42,6 +58,7 @@ html[data-theme="light"] {
   --sombra: 0 20px 50px rgba(20, 60, 40, 0.1);
 }
 
+/* ===== RESET E BASE ===== */
 * {
   box-sizing: border-box;
 }
@@ -76,6 +93,7 @@ html[data-theme="light"] body {
     linear-gradient(180deg, var(--cor-fundo-suave) 0%, var(--cor-fundo) 100%);
 }
 
+/* Padrão de grade decorativo */
 body::before {
   content: '';
   position: fixed;
@@ -92,6 +110,7 @@ html[data-theme="light"] body::before {
   mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.08), transparent 80%);
 }
 
+/* ===== COMPONENTE: THEME TOGGLE ===== */
 .theme-toggle {
   position: relative;
   z-index: 2;
@@ -129,6 +148,7 @@ html[data-theme="light"] body::before {
   transform: rotate(20deg);
 }
 
+/* ===== COMPONENTE: PLOTS ===== */
 .plot-wrapper img {
   width: 100%;
   height: auto;
@@ -141,6 +161,7 @@ html[data-theme="light"] body::before {
   margin-top: 0.6rem;
 }
 
+/* ===== ELEMENTOS GLOBAIS ===== */
 a {
   color: inherit;
   text-decoration: none;
@@ -150,6 +171,7 @@ img {
   max-width: 100%;
 }
 
+/* ===== COMPONENTE: HEADER ===== */
 .site-header {
   position: sticky;
   top: 0;
@@ -176,6 +198,7 @@ html[data-theme="light"] .site-header {
   position: relative;
 }
 
+/* Brand/logo */
 .brand {
   display: inline-flex;
   align-items: center;
@@ -212,6 +235,7 @@ html[data-theme="light"] .brand-mark {
   box-shadow: 0 12px 24px rgba(var(--cor-primaria-rgb), 0.18);
 }
 
+/* Navigation links */
 .nav-links {
   list-style: none;
   display: flex;
@@ -246,6 +270,7 @@ html[data-theme="light"] .nav-links a.active {
   transform: translateY(-1px);
 }
 
+/* Menu hamburger (mobile) */
 .nav-toggle {
   display: none;
 }
@@ -276,12 +301,14 @@ html[data-theme="light"] .nav-toggle-label {
   margin-top: 6px;
 }
 
+/* ===== COMPONENTE: MAIN CONTENT ===== */
 main {
   width: min(1120px, calc(100% - 2rem));
   margin: 0 auto;
   padding: 2rem 0 4rem;
 }
 
+/* ===== COMPONENTE: HERO ===== */
 .hero {
   display: grid;
   grid-template-columns: 1.25fr 0.9fr;
@@ -290,6 +317,7 @@ main {
   padding: 2rem 0 1rem;
 }
 
+/* Panel base para cards */
 .hero-copy,
 .hero-panel,
 .card,
@@ -383,6 +411,7 @@ html[data-theme="light"] .hero-copy::after {
   margin-top: 1.5rem;
 }
 
+/* ===== COMPONENTE: BOTÕES ===== */
 .button {
   display: inline-flex;
   justify-content: center;
@@ -435,6 +464,7 @@ html[data-theme="light"] .button:hover {
   transform: translateY(0) scale(0.99);
 }
 
+/* ===== COMPONENTE: STAT CARDS (no hero) ===== */
 .hero-panel {
   padding: 1.1rem;
   display: grid;
@@ -483,6 +513,7 @@ html[data-theme="light"] .stat-card.accent {
   background: linear-gradient(135deg, rgba(var(--cor-secundaria-rgb), 0.1), rgba(var(--cor-primaria-rgb), 0.1));
 }
 
+/* ===== SEÇÕES ===== */
 .section-block {
   margin-top: 1.2rem;
   padding: clamp(1.2rem, 2vw, 1.8rem);
@@ -508,6 +539,7 @@ html[data-theme="light"] .stat-card.accent {
   line-height: 1.7;
 }
 
+/* ===== GRIDS ===== */
 .cards-grid,
 .architecture-grid {
   display: grid;
@@ -526,6 +558,7 @@ html[data-theme="light"] .stat-card.accent {
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
 }
 
+/* ===== CARDS ===== */
 .card {
   padding: 1.25rem;
   animation: fadeUp 0.55s ease both;
@@ -584,6 +617,7 @@ html[data-theme="light"] .card:hover {
   }
 }
 
+/* ===== FORMULÁRIOS ===== */
 .form-stack {
   display: grid;
   gap: 1rem;
@@ -647,6 +681,7 @@ html[data-theme="light"] a:focus-visible {
   outline-offset: 2px;
 }
 
+/* ===== CAIXAS DE RESULTADO ===== */
 .result-box {
   margin-top: 1rem;
   padding: 1rem;
@@ -667,6 +702,7 @@ html[data-theme="light"] .highlight-band {
   background: linear-gradient(135deg, rgba(var(--cor-primaria-rgb), 0.08), rgba(var(--cor-secundaria-rgb), 0.06));
 }
 
+/* ===== TIMELINE ===== */
 .timeline {
   display: grid;
   gap: 0.9rem;
@@ -696,6 +732,7 @@ html[data-theme="light"] .timeline-item span {
   color: var(--cor-texto-suave);
 }
 
+/* ===== MINI TABELA (matriz de talhões) ===== */
 .mini-table {
   margin-top: 1rem;
   display: grid;
@@ -733,6 +770,7 @@ html[data-theme="light"] .mini-table-highlight {
   border-color: rgba(var(--cor-primaria-rgb), 0.3);
 }
 
+/* ===== LISTAS ===== */
 .formula-list {
   margin: 1rem 0 0;
   padding-left: 1.1rem;
@@ -749,6 +787,7 @@ html[data-theme="light"] .mini-table-highlight {
   font-family: inherit;
 }
 
+/* ===== TABELA DE AMORTIZAÇÃO ===== */
 .amort-table {
   overflow-x: auto;
   margin-top: 0.8rem;
@@ -804,6 +843,7 @@ html[data-theme="light"] .amort-table tbody tr {
   margin-top: 0.6rem;
 }
 
+/* ===== HINTS E NOTAS ===== */
 .form-hint {
   color: var(--cor-texto-suave);
   font-size: 0.9rem;
@@ -811,6 +851,7 @@ html[data-theme="light"] .amort-table tbody tr {
   margin-top: 0;
 }
 
+/* ===== TALHÕES (matriz) ===== */
 .talhoes-row {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -823,6 +864,7 @@ html[data-theme="light"] .amort-table tbody tr {
   padding: 0.8rem 0.6rem;
 }
 
+/* ===== TABELAS ===== */
 .table-wrap {
   overflow-x: auto;
 }
@@ -843,6 +885,7 @@ th {
   color: var(--cor-secundaria);
 }
 
+/* ===== FOOTER ===== */
 .site-footer {
   width: min(1120px, calc(100% - 2rem));
   margin: 0 auto;
@@ -851,6 +894,7 @@ th {
   text-align: center;
 }
 
+/* ===== ANIMAÇÕES ===== */
 @keyframes fadeUp {
   from {
     opacity: 0;
@@ -883,6 +927,7 @@ button:hover {
   100% { transform: scale(1); }
 }
 
+/* ===== RESPONSIVIDADE ===== */
 @media (max-width: 860px) {
   .hero,
   .highlight-band,

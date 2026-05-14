@@ -1,4 +1,19 @@
-// --- Gerenciador de tema (dark/light mode) ---
+/**
+ * AgroCalc Web - Script Principal
+ * Funcionalidades: tema dark/light, validação de formulários, cálculos agrícolas
+ * 
+ * Módulos:
+ * - Theme Manager: dark/light mode com localStorage
+ * - Conversor: decimal → binário/hexadecimal
+ * - Lógica Digital: simulação de porta AND
+ * - Cálculos Agrícolas: área, custos, blend, financiamento
+ */
+
+// ===== GERENCIADOR DE TEMA (dark/light mode) =====
+/**
+ * Inicializa o tema da página a partir do localStorage ou padrão 'dark'
+ * Trata exceções em modo privado onde localStorage não está disponível
+ */
 function initTheme() {
   let savedTheme = 'dark';
   try {
@@ -6,11 +21,16 @@ function initTheme() {
   } catch (error) {
     // localStorage não disponível (modo privado, file://, etc.)
     // Usa 'dark' como padrão sem persistência
+    console.warn('localStorage indisponível. Tema não será persistido.');
   }
   document.documentElement.setAttribute('data-theme', savedTheme);
   updateThemeIcon(savedTheme);
 }
 
+/**
+ * Atualiza o ícone do botão de tema
+ * @param {string} theme - 'dark' ou 'light'
+ */
 function updateThemeIcon(theme) {
   const icon = document.querySelector('.theme-icon');
   if (icon) {
@@ -18,6 +38,9 @@ function updateThemeIcon(theme) {
   }
 }
 
+/**
+ * Alterna entre temas dark/light e persiste a escolha
+ */
 function toggleTheme() {
   const html = document.documentElement;
   const currentTheme = html.getAttribute('data-theme') || 'dark';
@@ -26,16 +49,40 @@ function toggleTheme() {
   try {
     localStorage.setItem('agro-theme', newTheme);
   } catch (error) {
-    // localStorage não disponível (modo privado, file://, etc.)
-    // Tema funciona na sessão atual sem persistência
+    // localStorage não disponível
+    console.warn('Não foi possível salvar preferência de tema.');
   }
   updateThemeIcon(newTheme);
 }
 
+// ===== FORMATADORES =====
+/**
+ * Formata número para locale pt-BR (ex: 1000 → 1.000)
+ * @param {number} value - valor a formatar
+ * @returns {string} número formatado
+ */
 function formatNumber(value) {
   return new Intl.NumberFormat('pt-BR').format(value);
 }
 
+/**
+ * Formata valor como moeda BRL
+ * @param {number} value - valor em reais
+ * @returns {string} moeda formatada (ex: R$ 1.234,56)
+ */
+function formatCurrency(value) {
+  return new Intl.NumberFormat('pt-BR', {
+    style: 'currency',
+    currency: 'BRL',
+  }).format(value);
+}
+
+// ===== CONVERSOR DECIMAL/BINÁRIO/HEXADECIMAL =====
+/**
+ * Converte número decimal para binário e/ou hexadecimal
+ * @param {string} value - entrada do usuário (decimal)
+ * @param {string} mode - 'binary', 'hex' ou 'both'
+ */
 function updateConverterResult(value, mode) {
   const decimalValue = Number.parseInt(value, 10);
   const resultBox = document.getElementById('converter-result');
@@ -63,6 +110,13 @@ function updateConverterResult(value, mode) {
   resultBox.innerHTML = `${binaryLine}<br>${hexLine}<br>Valor decimal: ${formatNumber(decimalValue)}`;
 }
 
+// ===== LÓGICA DIGITAL (PORTA AND) =====
+/**
+ * Simula porta lógica AND para irrigação
+ * Retorna 1 apenas se umidade E temperatura forem 1
+ * @param {string} humidity - '0' ou '1'
+ * @param {string} temperature - '0' ou '1'
+ */
 function updateLogicResult(humidity, temperature) {
   const humidityValue = humidity === '1';
   const temperatureValue = temperature === '1';
@@ -78,14 +132,12 @@ function updateLogicResult(humidity, temperature) {
   `;
 }
 
-function formatCurrency(value) {
-  return new Intl.NumberFormat('pt-BR', {
-    style: 'currency',
-    currency: 'BRL',
-  }).format(value);
-}
-
-// Calcula área de talhão em m² e hectares
+// ===== CÁLCULOS AGRÍCOLAS =====
+/**
+ * Calcula área de talhão em m², hectares e alqueires
+ * @param {number} length - comprimento em metros
+ * @param {number} width - largura em metros
+ */
 function calculateAreaResult(length, width) {
   const resultBox = document.getElementById('area-result');
   const name = document.getElementById('area-name')?.value?.trim();
@@ -101,6 +153,13 @@ function calculateAreaResult(length, width) {
   `;
 }
 
+/**
+ * Calcula análise de custos e ponto de equilíbrio
+ * @param {number} fixedCost - custo fixo total
+ * @param {number} variableCost - custo variável por unidade
+ * @param {number} salePrice - preço de venda por unidade
+ * @param {number} quantity - quantidade produzida
+ */
 function calculateCostResult(fixedCost, variableCost, salePrice, quantity) {
   const resultBox = document.getElementById('cost-result');
   const producerName = document.getElementById('producer-name')?.value?.trim();
@@ -125,6 +184,10 @@ function calculateCostResult(fixedCost, variableCost, salePrice, quantity) {
   `;
 }
 
+/**
+ * Calcula estatísticas da matriz de talhões
+ * @param {number[][]} matriz - matriz 3x4 de produtividade (sacas/ha)
+ */
 function calculateTalhoesResult(matriz) {
   const resultBox = document.getElementById('talhoes-result');
   const flat = matriz.flat();
@@ -141,6 +204,10 @@ function calculateTalhoesResult(matriz) {
   `;
 }
 
+/**
+ * Extrai valores da matriz de talhões a partir dos inputs
+ * @returns {object|null} {values: array, labels: array} ou null se inválido
+ */
 function getTalhoesDataset() {
   const values = [];
 
@@ -149,6 +216,7 @@ function getTalhoesDataset() {
       const input = document.getElementById(`talh-${i}-${j}`);
       const value = Number.parseFloat(input?.value);
       if (!Number.isFinite(value)) {
+        console.error(`Valor inválido em talh-${i}-${j}`);
         return null;
       }
       values.push(value);
@@ -161,6 +229,13 @@ function getTalhoesDataset() {
   };
 }
 
+/**
+ * Calcula blend de fertilizante usando determinante e matriz inversa
+ * Sistema linear 3x3: ureia, superfosfato, KCl para atingir N, P, K
+ * @param {number} metaN - meta de nitrogênio
+ * @param {number} metaP - meta de fósforo
+ * @param {number} metaK - meta de potássio
+ */
 function calculateBlendResult(metaN, metaP, metaK) {
   const resultBox = document.getElementById('blend-result');
 
@@ -171,6 +246,7 @@ function calculateBlendResult(metaN, metaP, metaK) {
   ];
   const metas = [metaN, metaP, metaK];
 
+  // Calcula determinante
   const determinant = matriz[0][0] * (matriz[1][1] * matriz[2][2] - matriz[1][2] * matriz[2][1])
     - matriz[0][1] * (matriz[1][0] * matriz[2][2] - matriz[1][2] * matriz[2][0])
     + matriz[0][2] * (matriz[1][0] * matriz[2][1] - matriz[1][1] * matriz[2][0]);
@@ -180,12 +256,14 @@ function calculateBlendResult(metaN, metaP, metaK) {
     return;
   }
 
+  // Calcula matriz adjunta (método de cofatores)
   const adj = [
     [matriz[1][1] * matriz[2][2] - matriz[1][2] * matriz[2][1], -(matriz[0][1] * matriz[2][2] - matriz[0][2] * matriz[2][1]), matriz[0][1] * matriz[1][2] - matriz[0][2] * matriz[1][1]],
     [-(matriz[1][0] * matriz[2][2] - matriz[1][2] * matriz[2][0]), matriz[0][0] * matriz[2][2] - matriz[0][2] * matriz[2][0], -(matriz[0][0] * matriz[1][2] - matriz[0][2] * matriz[1][0])],
     [matriz[1][0] * matriz[2][1] - matriz[1][1] * matriz[2][0], -(matriz[0][0] * matriz[2][1] - matriz[0][1] * matriz[2][0]), matriz[0][0] * matriz[1][1] - matriz[0][1] * matriz[1][0]],
   ];
 
+  // Solução: X = (adj(A) / det(A)) × B
   const solucao = [
     (adj[0][0] * metas[0] + adj[0][1] * metas[1] + adj[0][2] * metas[2]) / determinant,
     (adj[1][0] * metas[0] + adj[1][1] * metas[1] + adj[1][2] * metas[2]) / determinant,
@@ -200,6 +278,12 @@ function calculateBlendResult(metaN, metaP, metaK) {
   `;
 }
 
+/**
+ * Calcula financiamento com tabela de amortização
+ * @param {number} principal - valor financiado
+ * @param {number} monthlyRatePercent - taxa mensal em %
+ * @param {number} installments - número de parcelas
+ */
 function calculateFinanceResult(principal, monthlyRatePercent, installments) {
   const resultBox = document.getElementById('finance-result');
   const monthlyRate = monthlyRatePercent / 100;
@@ -214,6 +298,7 @@ function calculateFinanceResult(principal, monthlyRatePercent, installments) {
     return;
   }
 
+  // Fórmula de parcela fixa: PMT = PV × [i(1+i)^n] / [(1+i)^n - 1]
   const factor = (monthlyRate * (1 + monthlyRate) ** installments) / ((1 + monthlyRate) ** installments - 1);
   const installmentValue = principal * factor;
   let balance = principal;
@@ -246,8 +331,9 @@ function calculateFinanceResult(principal, monthlyRatePercent, installments) {
   resultBox.innerHTML = summaryHTML + tableWrapper + noteHTML;
 }
 
+// ===== EVENT LISTENERS =====
 document.addEventListener('DOMContentLoaded', () => {
-  // Inicializar tema ao carregar a página
+  // Inicializar tema
   initTheme();
 
   // Listener: botão de alternar tema
@@ -256,6 +342,7 @@ document.addEventListener('DOMContentLoaded', () => {
     themeToggle.addEventListener('click', toggleTheme);
   }
 
+  // Conversor decimal
   const converterForm = document.getElementById('converter-form');
   if (converterForm) {
     converterForm.addEventListener('submit', (event) => {
@@ -266,6 +353,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Lógica AND
   const logicForm = document.getElementById('logic-form');
   if (logicForm) {
     logicForm.addEventListener('submit', (event) => {
@@ -276,7 +364,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Listener: área de talhão
+  // Cálculo de área
   const areaForm = document.getElementById('area-form');
   if (areaForm) {
     areaForm.addEventListener('submit', (event) => {
@@ -287,6 +375,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Cálculo de custos
   const costForm = document.getElementById('cost-form');
   if (costForm) {
     costForm.addEventListener('submit', (event) => {
@@ -299,6 +388,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Financiamento
   const financeForm = document.getElementById('finance-form');
   if (financeForm) {
     financeForm.addEventListener('submit', (event) => {
@@ -310,6 +400,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Matriz de talhões
   const talhoesForm = document.getElementById('talhoes-form');
   if (talhoesForm) {
     talhoesForm.addEventListener('submit', (event) => {
@@ -328,6 +419,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Blend de fertilizante
   const blendForm = document.getElementById('blend-form');
   if (blendForm) {
     blendForm.addEventListener('submit', (event) => {
@@ -339,6 +431,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Destaque de melhor valor na matriz
   const miniTable = document.querySelector('.mini-table');
   if (miniTable) {
     const spans = Array.from(miniTable.querySelectorAll('span'));
@@ -351,18 +444,21 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Botão para gerar gráfico via servidor Python
+  // Geração de gráfico via servidor Python
   const genPlotBtn = document.getElementById('generate-plot-btn');
   const plotImg = document.getElementById('agro-plot');
   let currentBlobUrl = null;
 
+  /**
+   * Faz requisição ao servidor Python para gerar gráfico
+   * Suporta dataset customizado da matriz ou gera aleatório
+   */
   async function generatePlotFromServer() {
     if (!genPlotBtn) return;
     genPlotBtn.disabled = true;
     const originalText = genPlotBtn.textContent;
     genPlotBtn.textContent = '⏳ Gerando gráfico...';
     
-    // Adicionar classe visual de carregamento
     if (plotImg) {
       plotImg.style.opacity = '0.5';
       plotImg.style.pointerEvents = 'none';
@@ -379,7 +475,9 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       const res = await fetch(`/api/generate-plot?${params.toString()}`);
-      if (!res.ok) throw new Error('Falha ao gerar imagem (verificar servidor).');
+      if (!res.ok) {
+        throw new Error('Falha ao gerar imagem (verificar servidor).');
+      }
       const blob = await res.blob();
       const url = URL.createObjectURL(blob);
       if (currentBlobUrl) URL.revokeObjectURL(currentBlobUrl);
@@ -390,8 +488,7 @@ document.addEventListener('DOMContentLoaded', () => {
         plotImg.style.pointerEvents = 'auto';
       }
     } catch (err) {
-      // mostra erro simples no console e em uma alerta
-      console.error(err);
+      console.error('Erro ao gerar gráfico:', err);
       alert('Não foi possível gerar o gráfico. Verifique se a aplicação foi iniciada com npm start.');
       if (plotImg) {
         plotImg.style.opacity = '1';
@@ -410,6 +507,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Fallback: tentar gerar gráfico novamente se houver erro de carregamento
   if (plotImg) {
     plotImg.addEventListener('error', () => {
       if (!plotImg.dataset.autoFallbackTried && genPlotBtn) {
