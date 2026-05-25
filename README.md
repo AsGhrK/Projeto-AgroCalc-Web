@@ -95,6 +95,10 @@ python -m venv .venv
 pip install -r requirements.txt
 ```
 
+Importante: o arquivo `server.js` tenta iniciar automaticamente o servidor Python usando o executável
+`.venv\Scripts\python.exe`. Portanto, crie o ambiente virtual chamado `.venv` e instale as dependências
+Python antes de rodar `npm start`. Se preferir não usar o auto-start, inicie manualmente o Flask (exemplos abaixo).
+
 ## Execução
 
 Inicie a aplicação principal:
@@ -107,6 +111,34 @@ Observações:
 
 - O servidor Node (Express) roda na porta `3000`. Acesse `http://localhost:3000`.
 - Quando necessário, o processo Python/Flask é iniciado automaticamente pelo `server.js` e escuta na porta `5000`.
+
+Como iniciar o servidor Python/Flask manualmente (Windows PowerShell):
+
+```powershell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python python/serve_plot.py
+```
+
+No Windows CMD (caso não use PowerShell):
+
+```cmd
+python -m venv .venv
+.venv\Scripts\activate
+python python/serve_plot.py
+```
+
+No Linux / macOS:
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+python python/serve_plot.py
+```
+
+Se você executar `npm start` sem ter criado/ativado o ambiente virtual `.venv`, o `server.js` pode falhar
+ao tentar iniciar o Python. Nesse caso, crie o `.venv` e instale as dependências listadas em `requirements.txt`,
+ou inicie o Flask manualmente antes de usar o frontend.
 
 ## Endpoints importantes
 
@@ -136,15 +168,26 @@ Boas práticas:
 
 - "Servidor Python não respondeu": verifique se o ambiente virtual está ativo e se os pacotes do `requirements.txt` foram instalados. Você pode iniciar o Flask manualmente:
 
-```bash
-# Ative .venv
+- "Servidor Python não respondeu": verifique se o ambiente virtual está ativo e se os pacotes do `requirements.txt` foram instalados. Você pode iniciar o Flask manualmente:
+
+```powershell
+# PowerShell
 .\.venv\Scripts\Activate.ps1
 python python/serve_plot.py
 ```
 
+- Se `npm start` falhar ao tentar iniciar o servidor Python: o `server.js` usa o caminho `.venv\Scripts\python.exe`. Verifique se o diretório `.venv` existe e contém o executável do Python. Se você optar por um nome diferente para o ambiente virtual, atualize `server.js` ou crie um `.venv` com esse conteúdo.
+
+- Problema com execução de scripts no PowerShell: se ao tentar ativar o virtualenv você receber erro de execução de scripts, execute no PowerShell (como administrador ou no escopo do processo):
+
+```powershell
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy RemoteSigned
+.\.venv\Scripts\Activate.ps1
+```
+
 - "Porta 3000 ocupada": identifique e finalize o processo que usa a porta (Windows):
 
-```bash
+```powershell
 netstat -ano | findstr :3000
 taskkill /PID <PID> /F
 ```
