@@ -62,6 +62,14 @@ Projeto-AgroCalc-Web/
 │  ├─ custo_producao.py
 │  └─ financiamento.py
 └─ README.md
+
+## Documentos
+
+Esta pasta contém documentos úteis relacionados ao projeto. Clique nos links abaixo para abrir cada arquivo:
+
+- [Apresentação - AgroCalc Pro](Documentos/AgroCalc_Pro.pptx)
+- [Relatório - DOCX](Documentos/Relatorio%20AgroCalcWeb.docx)
+- [Relatório - PDF](Documentos/Relatorio%20AgroCalcWeb.pdf)
 ```
 
 ## Pré-requisitos
